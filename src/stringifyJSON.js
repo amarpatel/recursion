@@ -39,21 +39,22 @@
 
 
 
-function stringify (obj) {
+function stringifyJSON (obj) {
     var sol;
     if (typeof obj === 'number' || typeof obj === 'boolean') {
         return String(obj);
     } else if (typeof obj === 'string') {
         return '"' + String(obj) + '"';
     } else if (typeof obj === 'object' && Array.isArray(obj) === true) {
-        sol = [];
-        sol.push(map(obj,stringify));
+        sol = map(obj,stringifyJSON);
         return '[' + sol + ']';
     } else if (Object.keys(obj).length === 0) {
         return '{}';
     } else {
         sol = '{';
-        each(obj,function(value,key,collection){ return sol += '"' + key + '":' + value + ','});
+        each(obj,function(value,key,collection){
+            return sol += stringifyJSON(key) + ':' + stringifyJSON(value) + ','}
+            );
         sol = sol.substr(0,sol.length-1);
         sol += '}';
         return sol;
