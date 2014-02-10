@@ -46,13 +46,13 @@ function stringifyJSON (obj) {
     } else if (typeof obj === 'string') {
         return '"' + String(obj) + '"';
     } else if (typeof obj === 'object' && Array.isArray(obj) === true) {
-        sol = map(obj,stringifyJSON);
+        sol = _.map(obj,stringifyJSON);
         return '[' + sol + ']';
     } else if (Object.keys(obj).length === 0) {
         return '{}';
     } else {
         sol = '{';
-        each(obj,function(value,key,collection){
+        _.each(obj,function(value,key,collection){
             return sol += stringifyJSON(key) + ':' + stringifyJSON(value) + ','}
             );
         sol = sol.substr(0,sol.length-1);
