@@ -4,4 +4,13 @@
 // but you're not, so you'll write it from scratch:
 var parseJSON = function (json) {
   // your code goes here
+
+  //incomplete code
+  if (!isNaN(Number(json))) {
+  	return Number(json);
+  } else if (json === 'true') {
+  	return true;
+  } else if (json === 'false') {
+  	return false;
+  } 
 };
