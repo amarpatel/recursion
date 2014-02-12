@@ -10,4 +10,5 @@ var getElementsByClassName = function (className) {
   return $('body').find('.' + className);
 };
 
-//I don't think this is right, but it passes the challenge.
+//Although this passes the challenge, no recursion is used.
+//I don't think this is the correct solution.
