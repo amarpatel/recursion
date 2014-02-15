@@ -11,4 +11,4 @@ var getElementsByClassName = function (className) {
 };
 
 //Although this passes the challenge, no recursion is used.
-//I don't think this is the correct solution.
+//I don't think this is the correct
