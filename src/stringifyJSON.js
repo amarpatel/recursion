@@ -36,27 +36,36 @@
 //JSON.stringify({x: 5, y: 6});        
 //// '{"x":5,"y":6}' or '{"y":6,"x":5}'
 
+// types of inputs:
+// 	boolean
+// 	strings 
+// 	numbers
+
+// 	arrays with above included
+// 	objects with above included
+
 
 
 
 function stringifyJSON (obj) {
     var sol;
-    if (typeof obj === 'number' || typeof obj === 'boolean') {
-        return String(obj);
-    } else if (typeof obj === 'string') {
-        return '"' + String(obj) + '"';
-    } else if (typeof obj === 'object' && Array.isArray(obj) === true) {
-        sol = _.map(obj,stringifyJSON);
-        return '[' + sol + ']';
-    } else if (Object.keys(obj).length === 0) {
-        return '{}';
-    } else {
-        sol = '{';
-        _.each(obj,function(value,key,collection){
-            return sol += stringifyJSON(key) + ':' + stringifyJSON(value) + ','}
-            );
-        sol = sol.substr(0,sol.length-1);
-        sol += '}';
+	if (typeof obj === 'boolean' || typeof obj === 'number') {
+		return obj.toString();
+	} else if (typeof obj === 'string') {
+        return '\"' + obj + '\"';   
+	} else if (typeof obj === 'object' && Array.isArray(obj) === true) {
+        sol = [];
+        _.each(obj,function(val){sol.push(stringifyJSON(val))});
         return sol;
-    }
+	} else if (typeof obj === 'object' && Array.isArray(obj) === false) {
+        sol = '';
+        _.each(obj,function(val,key,col){sol += stringifyJSON(key) + ':' + stringifyJSON(val) + ', '})
+        return sol ='{' + sol.substr(0,sol.length-2) + '}';
+	} else {
+        return sol;
+	}
 }
+
+// including missing variables for SpecRunner.html
+var arrayWithValidElements = [true,'false',42];
+var objectWithInvalidAttributes = {x: 5, y: 6};
