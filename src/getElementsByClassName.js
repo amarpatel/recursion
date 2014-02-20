@@ -8,9 +8,7 @@ var getElementsByClassName = function (className) {
 	var sol = [];
 	var classFinder = function (array) {
 		_.each(array,function(val) {
-			if (val.className === className) {
-				sol.push(val);
-			} else if (_.contains(val.classList,className) === true) {
+			if (_.contains(val.classList,className) === true) {
 				sol.push(val);
 			} else {
 				classFinder(val.children);
