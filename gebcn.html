@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+
+</head>
+<body>
+	<script type="text/javascript">
+	var htmlStrings = [
+	"<p class='targetClassName'></p>",
+	"<p class='otherClassName targetClassName'></p>",
+	"<p><p class='targetClassName'></p></p>",
+	"<p><p class='targetClassName'><p class='targetClassName'></p></p></p>",
+	"<p><p></p><p><p class='targetClassName'></p></p></p>",
+	"<p><p class='targetClassName'></p><p class='targetClassName'></p></p>",
+	"<p><div class='somediv'><div class='innerdiv'><span class='targetClassName'>yay</span></div></div></p>"
+	];
+
+	var test = 'targetClassName', getElementsByClassName = function (className) {
+		var sol = [];
+		var classFinder = function (array) {
+			_.each(array,function(val) {
+				if (val.className === className) {
+					sol.push(val);
+				}
+				if (val.className !== undefined && val.className.split(' ').length > 1) {
+						if (_.contains(val.classList,className) === true) {
+							sol.push(val);
+						}
+				}
+				if (val.children.length > 0) {
+					array = val.children
+					classFinder(array);
+				}
+			});
+			return sol;
+		};
+		return classFinder(document.body.children);
+	};
+	var exampleGetElementsByClassName = function (className) {
+		return document.getElementsByClassName(className);
+	};
+
+
+	</script>
+
+	<p class='targetClassName'></p>
+	<p class='otherClassName targetClassName'></p>
+	<p>
+		<p class='targetClassName'></p>
+	</p>
+	<p>
+		<p class='targetClassName'>
+			<p class='targetClassName'></p>
+		</p>
+	</p>
+	<p>
+		<p></p>
+		<p>
+			<p class='targetClassName'></p>
+		</p>
+	</p>
+	<p>
+		<p class='targetClassName'></p><p class='targetClassName'>
+	</p>
+</p>
+<p>
+	<div class='somediv'>
+		<div class='innerdiv'>
+			<span class='targetClassName'>yay</span>
+		</div>
+		<span class='targetClassName'>yay</span>
+	</div>
+</p>
+</body>
+</html>
