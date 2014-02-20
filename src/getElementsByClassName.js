@@ -10,15 +10,10 @@ var getElementsByClassName = function (className) {
 		_.each(array,function(val) {
 			if (val.className === className) {
 				sol.push(val);
-			}
-			if (val.className !== undefined && val.className.split(' ').length > 1) {
-				if (_.contains(val.classList,className) === true) {
-					sol.push(val);
-				}
-			}
-			if (val.children.length > 0) {
-				array = val.children
-				classFinder(array);
+			} else if (_.contains(val.classList,className) === true) {
+				sol.push(val);
+			} else {
+				classFinder(val.children);
 			}
 		});
 		return sol;
