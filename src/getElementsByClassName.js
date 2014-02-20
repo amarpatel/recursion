@@ -3,12 +3,27 @@
 //   return document.getElementsByClassName(className);
 // };
 
-//Use the test.html file for testing (on desktop)
-
 // But in stead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
-  return $('body').find('.' + className);
+	var sol = [];
+	var classFinder = function (array) {
+		_.each(array,function(val) {
+			if (val.className === className) {
+				sol.push(val);
+			}
+			if (val.className !== undefined && val.className.split(' ').length > 1) {
+				if (_.contains(val.classList,className) === true) {
+					sol.push(val);
+				}
+			}
+			if (val.children.length > 0) {
+				array = val.children
+				classFinder(array);
+			}
+		});
+		return sol;
+	};
+	return classFinder(document.body.children);
 };
 
-//Although this passes the challenge, no recursion is used.
-//I don't think this is the correct
+//I used the gebcn.html file for testing
