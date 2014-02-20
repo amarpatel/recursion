@@ -8,11 +8,7 @@ var getElementsByClassName = function (className) {
 	var sol = [];
 	var classFinder = function (array) {
 		_.each(array,function(val) {
-			if (_.contains(val.classList,className) === true) {
-				sol.push(val);
-			} else {
-				classFinder(val.children);
-			}
+			(_.contains(val.classList,className) === true) ? sol.push(val) : classFinder(val.children);
 		});
 		return sol;
 	};
