@@ -59,7 +59,7 @@ function stringifyJSON (obj) {
         return sol;
 	} else if (typeof obj === 'object' && Array.isArray(obj) === false) {
         sol = '';
-        _.each(obj,function(val,key){sol += stringifyJSON(key) + ':' + stringifyJSON(val) + ', '})
+        _.each(obj,function(val,key){sol += stringifyJSON(key) + ':' + stringifyJSON(val) + ', '});
         return sol ='{' + sol.substr(0,sol.length-2) + '}';
 	} else {
         return sol;
