@@ -4,15 +4,17 @@
 // };
 
 // But in stead we're going to implement it from scratch:
-var getElementsByClassName = function (className) {
+var getElementsByClassName = function (className, val) {
+	val = val || document.body;
 	var sol = [];
-	var classFinder = function (array) {
-		_.each(array,function(val) {
-			(_.contains(val.classList,className) === true) ? sol.push(val) : classFinder(val.children);
-		});
-		return sol;
+
+	if(_.contains(val.classList,className) === true){
+		sol.push(val);
 	};
-	return classFinder(document.body.children);
+	_.each(val.children,function(item) {
+		sol = sol.concat(getElementsByClassName(className, item));
+	});
+	return sol;
 };
 
 //I used the gebcn.html file for testing
