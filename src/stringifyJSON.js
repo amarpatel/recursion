@@ -48,22 +48,20 @@
 
 
 function stringifyJSON (obj) {
-    var sol;
-	if (typeof obj === 'boolean' || typeof obj === 'number') {
-		return obj.toString();
-	} else if (typeof obj === 'string') {
-        return '\"' + obj + '\"';   
-	} else if (typeof obj === 'object' && Array.isArray(obj) === true) {
-        sol = [];
-        _.each(obj,function(val){sol.push(stringifyJSON(val))});
-        return sol;
-	} else if (typeof obj === 'object' && Array.isArray(obj) === false) {
-        sol = '';
-        _.each(obj,function(val,key){sol += stringifyJSON(key) + ':' + stringifyJSON(val) + ', '});
-        return sol ='{' + sol.substr(0,sol.length-2) + '}';
-	} else {
-        return sol;
-	}
+  var sol = [];
+  if (typeof obj === 'boolean' || typeof obj === 'number') {
+    return obj.toString();
+  } else if (typeof obj === 'string') {
+    return '\"' + obj + '\"';   
+  } else if (Array.isArray(obj)) {
+    _.each(obj,function(val){sol.push(stringifyJSON(val))});
+    return "[" + sol.join(",") + "]";
+  } else if (typeof obj === 'object') {
+    _.each(obj,function(val,key){sol.push(stringifyJSON(key) + ':' + stringifyJSON(val))});
+    return sol ='{' + sol.join(",") + '}';
+  } else {
+    return sol;
+  }
 }
 
 // including missing variables for SpecRunner.html
